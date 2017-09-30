@@ -4,10 +4,12 @@
 # and open the template in the editor.
 require_relative "sorpresa"
 require_relative "tipo_sopresa"
+
 module ModeloQytetet
   class PruebaQytetet
-    @@mazo = Array.new
     
+    @@mazo = Array.new
+ 
     def self.inicializar_sorpresas
       
       @@mazo << Sorpresa.new("Te hemos pillado copiando en un examen " +
@@ -40,39 +42,77 @@ module ModeloQytetet
       @@mazo<< Sorpresa.new("Tus compañeros te ofrecen dinero para que le " +
                              "pases las practicas. Todos hacen un bote " + 
                              "y te lo dan",25,
-                            TipoSorpresa::PORCASAHOTEL)
+                            TipoSorpresa::PORJUGADOR)
       @@mazo<< Sorpresa.new("Tus compañeros te han pillado copiandote. " + 
                             "Todos te piden dinero por su silencio. " + 
                             "Te toca pagar.", 15,
-                            TipoSorpresa::PORCASAHOTEL)
+                            TipoSorpresa::PORJUGADOR)
 
     end
+    
     def self.obtener_sorpresas_valor_positivo
       sorpresas_positivas = Array.new
  
-      @@mazo.each do |mazo|
-        if mazo.valor > 0
-          sorpresas_positivas << mazo
+      @@mazo.each do |carta|
+        if carta.valor > 0
+          sorpresas_positivas << carta
         end    
       end
       
       return sorpresas_positivas
     end
     
+    def self.obtener_sorpresas_ir_casilla
+      sorpresas_ir_casilla = Array.new;
+      
+      @@mazo.each { |carta|
+        if carta.tipo == TipoSorpresa::IRACASILLA
+          sorpresas_ir_casilla << carta
+        end
+      }
+      
+      return sorpresas_ir_casilla
+    end
+
+    def self.buscar_sorpresas_por_tipo(tipo_casilla)
+      sorpresas = Array.new;
+      
+      @@mazo.each { |carta|
+        if carta.tipo == tipo_casilla
+          sorpresas << carta
+        end
+      }
+      
+      return sorpresas
+    end    
+    
     def self.main
       
       PruebaQytetet.inicializar_sorpresas
       sorpresas_positivas = Array.new(PruebaQytetet.obtener_sorpresas_valor_positivo)
+      sorpresas_ir_casilla = Array.new(PruebaQytetet.obtener_sorpresas_ir_casilla)
+      sorpresas_elegida = Array.new(PruebaQytetet.buscar_sorpresas_por_tipo(TipoSorpresa::SALIRCARCEL))
 
+      puts "-----Todas las cartas-----"
       @@mazo.each do |mazo|
         puts mazo.to_s
       end
       
+      puts "-----Cartas valor positivo-----"
       sorpresas_positivas.each do |mazo|
         puts mazo.to_s
       end
       
+      puts "-----Cartas tipo IRACASILLA-----"
+      sorpresas_ir_casilla.each do |mazo|
+        puts mazo.to_s
+      end
       
+      puts "-----Cartas tipo elegido por tipo-----"
+      sorpresas_elegida.each do |mazo|
+        puts mazo.to_s
+      end      
+
     end
     
   end
