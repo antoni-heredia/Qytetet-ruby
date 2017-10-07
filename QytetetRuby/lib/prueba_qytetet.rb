@@ -4,7 +4,9 @@
 # and open the template in the editor.
 require_relative "sorpresa"
 require_relative "tipo_sopresa"
-
+require_relative "titulo_propiedad"
+require_relative "casilla"
+require_relative "tipo_propiedad"
 module ModeloQytetet
   class PruebaQytetet
     
@@ -111,8 +113,8 @@ module ModeloQytetet
       puts "-----Cartas tipo elegido por tipo-----"
       sorpresas_elegida.each do |mazo|
         puts mazo.to_s
-      end      
-
+      end
+      
     end
     
   end
