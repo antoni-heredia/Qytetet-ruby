@@ -6,8 +6,8 @@ module ModeloQytetet
   class Casilla
     
     #Atributos de la clase
-    attr_reader :numeroCasilla, :coste, :tipo, :titulo
-    attr_accessor :numHoteles, :numCasas
+    attr_reader :numeroCasilla, :coste, :tipo
+    attr_accessor :numHoteles, :numCasas, :titulo
     
     def initialize(numeroCasilla, coste, tipo, titulo)
       @numeroCasilla = numeroCasilla
@@ -28,9 +28,7 @@ module ModeloQytetet
       self.new(numeroCasilla, coste, tipo, nil)
     end
     
-    def set_titulo_propiedad(titulo)
-      @titulo = titulo
-    end
+
     
     #Devuelve un string con la informacion de la casill
     def to_s
@@ -43,6 +41,6 @@ module ModeloQytetet
       return mensaje
     end
     
-    private :set_titulo_propiedad
+    private :titulo=
   end
 end
