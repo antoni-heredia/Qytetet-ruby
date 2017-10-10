@@ -12,7 +12,8 @@ module ModeloQytetet
   class PruebaQytetet
     
     @@mazo = Array.new
- 
+    @@tablero = Tablero.new
+
     def self.inicializar_sorpresas
       
       @@mazo << Sorpresa.new("Te hemos pillado copiando en un examen " +
@@ -95,7 +96,6 @@ module ModeloQytetet
       sorpresas_positivas = Array.new(PruebaQytetet.obtener_sorpresas_valor_positivo)
       sorpresas_ir_casilla = Array.new(PruebaQytetet.obtener_sorpresas_ir_casilla)
       sorpresas_elegida = Array.new(PruebaQytetet.buscar_sorpresas_por_tipo(TipoSorpresa::SALIRCARCEL))
-      tablero = Tablero.new
 
       puts "-----Todas las cartas-----"
       @@mazo.each do |mazo|
@@ -118,10 +118,10 @@ module ModeloQytetet
       end
       
       puts "-----Tablero-----"
-      puts tablero.to_s
+      puts @@tablero.to_s
       
       puts "-----Casilla Carcel-----"
-      puts tablero.carcel.numeroCasilla
+      puts @@tablero.carcel.numeroCasilla
     end
     
   end
