@@ -3,12 +3,13 @@
 # and open the template in the editor.
 
 module ModeloQytetet
-  module TipoPropiedad
+  module TipoCasilla
       SALIDA = :Salir
       CALLE = :Calle
       SORPRESA = :Sorpresa
       CARCEL = :Carcel
       JUEZ = :Juez
       IMPUESTO = :Impuesto
+      PARKING = :Parking
   end
 end

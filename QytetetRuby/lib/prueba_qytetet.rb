@@ -6,7 +6,8 @@ require_relative "sorpresa"
 require_relative "tipo_sopresa"
 require_relative "titulo_propiedad"
 require_relative "casilla"
-require_relative "tipo_propiedad"
+require_relative "tipo_casilla"
+require_relative "tablero"
 module ModeloQytetet
   class PruebaQytetet
     
@@ -94,6 +95,7 @@ module ModeloQytetet
       sorpresas_positivas = Array.new(PruebaQytetet.obtener_sorpresas_valor_positivo)
       sorpresas_ir_casilla = Array.new(PruebaQytetet.obtener_sorpresas_ir_casilla)
       sorpresas_elegida = Array.new(PruebaQytetet.buscar_sorpresas_por_tipo(TipoSorpresa::SALIRCARCEL))
+      tablero = Tablero.new
 
       puts "-----Todas las cartas-----"
       @@mazo.each do |mazo|
@@ -115,6 +117,11 @@ module ModeloQytetet
         puts mazo.to_s
       end
       
+      puts "-----Tablero-----"
+      puts tablero.to_s
+      
+      puts "-----Casilla Carcel-----"
+      puts tablero.carcel.numeroCasilla
     end
     
   end

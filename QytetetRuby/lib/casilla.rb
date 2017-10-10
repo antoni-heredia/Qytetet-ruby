@@ -20,7 +20,7 @@ module ModeloQytetet
     
     #Contructor para casillas que son calle
     def self.crear_calle(numeroCasilla, coste, titulo)
-      self.new(numeroCasilla, coste,TipoPropiedad::CALLE,titulo)
+      self.new(numeroCasilla, coste,TipoCasilla::CALLE,titulo)
     end
     
     #construtor para casillas que no son calle
@@ -34,7 +34,7 @@ module ModeloQytetet
     def to_s
       mensaje = "Numero casilla #{@numeroCasilla}\nCoste #{@coste}\nTipo #{@tipo}"
       
-      if(tipo == TipoPropiedad::CALLE)
+      if(tipo == TipoCasilla::CALLE)
         mensaje += "\nTitulo = {\n#{@titulo.to_s()}}\nNumero hoteles #{@numHoteles}\nNumero casas #{@numCasas}"
       end
       
