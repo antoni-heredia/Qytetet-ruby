@@ -37,6 +37,7 @@ module ModeloQytetet
       end
       return cadena
     end
+    
 =begin
     def tengo_propiedades
       

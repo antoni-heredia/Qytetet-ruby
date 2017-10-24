@@ -4,7 +4,7 @@
 
 module ModeloQytetet
   class Tablero
-    attr_reader :carcel
+    attr_reader :carcel, :casillas
     
     def initialize
       inicializar
@@ -70,12 +70,29 @@ module ModeloQytetet
       
     end
     
+=begin
+
+    def es_casilla_carcel(num_casilla)
+      
+    end
+    
+    def obtener_casilla_numero(numero_casilla)
+      
+    end
+    
+    def obtener_casilla_nueva(casilla, desplazamiento)
+      
+    end
+=end    
+    
     def to_s
       
       @casillas.each do |casilla|
         puts casilla.to_s
       end
     end
+    
+    
     
     private :inicializar
   end

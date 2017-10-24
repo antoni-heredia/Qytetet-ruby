@@ -1,6 +1,7 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
+require_relative "titulo_propiedad"
 
 module ModeloQytetet
   class Casilla
@@ -16,6 +17,9 @@ module ModeloQytetet
       @titulo = titulo
       @numHoteles = 0
       @numCasas = 0
+      if(titulo != nil)
+        titulo.casilla = self
+      end
     end
     
     #Contructor para casillas que son calle
@@ -41,6 +45,80 @@ module ModeloQytetet
       return mensaje
     end
     
-    private :titulo=
+=begin
+    def asignar_propietario(jugador)
+      
+    end
+    
+    def calcular_valor_hipoteca()
+      
+    end
+    
+    def cancelar_hipoteca()
+      
+    end
+    
+    def cobrar_alquiler()
+      
+    end
+    
+    def edificar_casa()
+      
+    end
+    
+    def edificar_hotel()
+      
+    end
+    
+    def esta_hipotecada
+      
+    end
+    
+    def get_coste_hipoteca()
+      
+    end
+    
+    def get_precio_edificar()
+      
+    end
+    
+    def hipotecar()
+      
+    end
+    
+    def precio_total_comprar()
+      
+    end
+    
+    def preopietario_encarcelado()
+      
+    end
+    
+    def se_puede_edificar_casa()
+      
+    end
+    
+    def se_puede_edificar_hotel()
+      
+    end
+    
+    def soy_edificable()
+      
+    end
+    
+    def tengo_propietario()
+      
+    end
+    
+    def vender_titulo()
+      
+    end
+
+    
+=end
+    def asignar_titulo_propiedad()
+      
+    end
+    private :titulo=,:asignar_titulo_propiedad
   end
 end
