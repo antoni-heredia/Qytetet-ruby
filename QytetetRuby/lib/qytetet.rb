@@ -1,4 +1,4 @@
-#encoding :utf-8
+# encoding: UTF-8
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
@@ -56,9 +56,7 @@ module ModeloQytetet
       
     end
   
-    def inicializar_juego(nombres)
-      
-    end
+    
     
     def intentar_salir_carcel(metodo)
       
@@ -141,7 +139,43 @@ module ModeloQytetet
       @tablero = Tablero.new
     end
     
+    def inicializar_juego(nombres)
+        inicializar_tablero()
+        inicializar_cartas_sorpresa()
+        inicializar_jugadores(nombres)
+    end
     
+    def to_s
+      cadena = ""
+      
+      if(@carta_actual != nil)
+        cadena += "Carta actual: "+@carta_actual.to_s+"\n"
+      end
+      
+      if(@jugador_actual != nil)
+        cadena += "Jugador actual: "+@jugador_actual.to_s+"\n"
+      end
+      
+      if(@tablero != nil)
+        cadena += "Tablero: "+@tablero.to_s+"\n"
+      end
+      
+      if(!@mazo.empty?)
+        cadena += "Cartas: \n"
+        @mazo.each do |carta|
+          cadena += " " + carta.to_s
+        end
+      end
+      
+      if(!@jugadores.empty?)
+        cadena += "Jugadores: \n"
+        @jugadores.each do |jugador|
+          cadena += " " + jugador.to_s
+        end
+      end
+      
+      return cadena
+    end
     
     private  :inicializar_cartas_sorpresa, :inicializar_jugadores, :inicializar_tablero
     

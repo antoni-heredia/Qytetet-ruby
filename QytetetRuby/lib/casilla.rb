@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
@@ -36,10 +37,10 @@ module ModeloQytetet
     
     #Devuelve un string con la informacion de la casill
     def to_s
-      mensaje = "Numero casilla #{@numeroCasilla}\nCoste #{@coste}\nTipo #{@tipo}"
+      mensaje = "\nNumero casilla #{@numeroCasilla}\nCoste #{@coste}\nTipo #{@tipo}\n"
       
       if(tipo == TipoCasilla::CALLE)
-        mensaje += "\nTitulo = {\n#{@titulo.to_s()}}\nNumero hoteles #{@numHoteles}\nNumero casas #{@numCasas}"
+        mensaje += "\nTitulo = "+@titulo.to_s()+"\nNumero hoteles #{@numHoteles}\nNumero casas #{@numCasas}\n"
       end
       
       return mensaje
