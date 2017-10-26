@@ -2,17 +2,17 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
+require_relative "qytetet"
 
 module ModeloQytetet
   class Tablero
     attr_reader :carcel, :casillas
-    
     def initialize
       inicializar
     end
     
     def inicializar
-      @casillas = Array.new;
+      @casillas = Array.new(Qytetet. MAX_CASILLAS);
       #Se crea el objeto carcel
       @carcel = Casilla.crear_no_calle(5,000,TipoCasilla::CARCEL)
       

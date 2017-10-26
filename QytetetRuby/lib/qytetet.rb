@@ -12,8 +12,7 @@ module ModeloQytetet
   class Qytetet
     include Singleton
 
-    attr_reader :MAX_JUGADORES, :MAX_CARTAS, :MAX_CASILLAS, :PRECIO_LIBERTAD, :SALDO_SALIDA
-    attr_accessor :carta_actual, :mazo, :jugadores, :jugador_actual, :tablero, :dado
+    
     
     @@MAX_JUGADORES = 4
     @@MAX_CARTAS = 10
@@ -21,13 +20,34 @@ module ModeloQytetet
     @@PRECIO_LIBERTAD = 200
     @@SALDO_SALIDA = 1000
     
+    attr_accessor :carta_actual, :mazo, :jugadores, :jugador_actual, :tablero, :dado
     def initialize()
       @carta_actual = nil
-      @mazo = Array.new
+      @mazo = Array.new(@@MAX_CARTAS)
       @jugadores = Array.new
       @jugador_actual = nil
       @tablero = nil
       @dado = Dado.instance
+    end
+    
+    def self.MAX_CASILLAS
+      @@MAX_CASILLAS
+    end
+    
+    def self.MAX_CASILLAS
+      @@MAX_JUGADORES
+    end
+    
+    def self.MAX_CASILLAS
+      @@MAX_CARTAS
+    end
+    
+    def self.MAX_CASILLAS
+      @@PRECIO_LIBERTAD
+    end
+    
+    def self.MAX_CASILLAS
+      @@SALDO_SALIDA
     end
 
 =begin
