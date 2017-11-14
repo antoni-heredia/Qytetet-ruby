@@ -7,10 +7,9 @@ module ModeloQytetet
   class Dado
     include Singleton
   
-=begin
     def tirar
-
+      return rand(5) + 1
     end
-=end
+    
   end
 end

@@ -34,20 +34,40 @@ module ModeloQytetet
       @@MAX_CASILLAS
     end
     
-    def self.MAX_CASILLAS
+    def self.MAX_JUGADORES
       @@MAX_JUGADORES
     end
     
-    def self.MAX_CASILLAS
+    def self.MAX_CARTAS
       @@MAX_CARTAS
     end
     
-    def self.MAX_CASILLAS
+    def self.MAX_LIBERTAD
       @@PRECIO_LIBERTAD
     end
     
-    def self.MAX_CASILLAS
+    def self.MAX_SALIDA
       @@SALDO_SALIDA
+    end
+    
+    def siguiente_jugador
+      
+      posicion_jugador = (@jugadores.rindex(@jugador_actual) + 1) % @@MAX_JUGADORES
+      @jugador_actual = @jugador[posicion_jugador]
+      
+    end
+    
+    def propiedades_hipotecadas_jugador(hipotecadas)
+      casillas = Array.new
+      
+      @jugador_actual.propiedades each do |propiedad|
+        if (propiedad.hipotecada == hipotecadas)
+          casillas << propiedad
+        end
+      end
+      
+      return casillas
+      
     end
 
 =begin
@@ -90,13 +110,9 @@ module ModeloQytetet
       
     end
     
-    def propiedades_hipotecadas_jugador(hipotecadas)
-      
-    end
     
-    def siguiente_jugador
-      
-    end
+    
+    
     
     def vender_propiedad(casilla)
       

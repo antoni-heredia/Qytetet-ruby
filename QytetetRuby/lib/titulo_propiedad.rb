@@ -18,7 +18,7 @@ module ModeloQytetet
       @hipoteca_base = hipoteca_base
       @precio_edificar = precio_edificar
       @casilla
-      @propietario
+      @propietario = nil
     end
     
     #Constructor sin necesidad de decir si esta hipotecada, ya que por defecto sera false
@@ -30,6 +30,15 @@ module ModeloQytetet
     def self.crear_todo_defecto(nombre)
       self.crear(nombre,50, 0.1, 150, 250)
     end
+    
+    def tengo_propietario()
+      estado = false
+      if (@propietario != nil)
+        estado = true
+      end
+      
+      return estado
+    end
 =begin
     def cobrar_alquiler(coste)
       
@@ -39,9 +48,7 @@ module ModeloQytetet
       
     end
 
-    def tengo_propietario()
-      
-    end
+
 =end
     
     

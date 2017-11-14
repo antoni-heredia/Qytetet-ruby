@@ -33,7 +33,12 @@ module ModeloQytetet
       self.new(numeroCasilla, coste, tipo, nil)
     end
     
-
+    
+    
+    def esta_hipotecada
+      return @titulo.hipotecada
+    end
+    
     
     #Devuelve un string con la informacion de la casill
     def to_s
@@ -45,6 +50,7 @@ module ModeloQytetet
       
       return mensaje
     end
+    
     
 =begin
     def asignar_propietario(jugador)
@@ -71,10 +77,7 @@ module ModeloQytetet
       
     end
     
-    def esta_hipotecada
-      
-    end
-    
+
     def get_coste_hipoteca()
       
     end

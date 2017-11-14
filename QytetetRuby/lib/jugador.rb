@@ -39,10 +39,45 @@ module ModeloQytetet
       return cadena
     end
     
-=begin
-    def tengo_propiedades
+    def devolver_carta_libertad
+      
+      if(@carta_libertad != nil)
+        sorpresa = @carta_libertad
+        @carta_libertad = nil
+      end
+      
+      return sorpresa
       
     end
+    
+    def tengo_carta_libertad
+      libertad = false
+      if(@carta_libertad != nil)
+        libertad = true
+      end
+      
+      return libertad
+    end
+    
+    def puedo_vender_propiedad(casilla)
+      estado = false
+      if(es_de_mi_propiedad(casilla) && !casilla.esta_hipotecada)
+        estado = true
+      end
+      
+      return estado
+    end
+    
+    def modificar_saldo(cantidad)
+      @saldo += cantidad
+    end
+    
+    def tengo_propiedades
+      return !@propiedades.empty?
+    end
+      
+=begin
+    
 
     def actualizar_posicion(casilla)
       
@@ -52,17 +87,13 @@ module ModeloQytetet
       
     end
 
-    def devolver_carta_libertad
-      
-    end
+
 
     def ir_a_carcel(casilla)
       
     end
 
-    def modificar_saldo(cantidad)
-      
-    end
+
 
     def obtener_capital
       
@@ -96,13 +127,9 @@ module ModeloQytetet
 
     end
 
-    def puedo_vender_propiedad(casilla)
 
-    end
 
-    def tengo_carta_libertad
-
-    end
+    
       
     def vender_propiedad(casilla)
 

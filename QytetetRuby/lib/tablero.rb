@@ -71,15 +71,17 @@ module ModeloQytetet
       
     end
     
+    def obtener_casilla_numero(numero_casilla)
+      return @casillas[numero_casilla];
+    end
+    
 =begin
 
     def es_casilla_carcel(num_casilla)
       
     end
     
-    def obtener_casilla_numero(numero_casilla)
-      
-    end
+    
     
     def obtener_casilla_nueva(casilla, desplazamiento)
       
