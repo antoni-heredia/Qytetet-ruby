@@ -5,8 +5,8 @@
 
 module ModeloQytetet
   class Jugador
-    attr_reader :nombre, :propiedades, :saldo
-    attr_accessor :casillaActual, :encarcelado, :carta_libertad
+    attr_reader :nombre, :propiedades
+    attr_accessor :casillaActual, :saldo, :encarcelado, :carta_libertad
   
     def initialize(nombre)
       @encarcelado = false
@@ -75,33 +75,85 @@ module ModeloQytetet
     def tengo_propiedades
       return !@propiedades.empty?
     end
-      
-=begin
-    
+	
+	
+	def cuantas_casas_hoteles_tengo
+		cant = 0
 
-    def actualizar_posicion(casilla)
+		@propiedades.each do |p|
+			cant +=  p.casilla.numHoteles + p.casilla.numCasas
+		end
+
+		return cant
+	end
+
+	def obtener_capital
+		capital = @saldo
+		
+		@propiedades.each do |p|	
+			capita += p.casilla.coste
+			capital += self.cuantas_casas_hoteles_tengo*t.precio_edificar
+			
+			if(t.hipotecada)
+				capital -= t.hipoteca_base
+			end
+		end
+
+        return capital
+	end
+
+	def es_de_mi_propiedad(casilla)
+		f = false;
+
+		@propiedades.each do |p|
+      if(p.casilla.numeroCasilla == casilla.numeroCasilla)
+          f = true	
+      end			
+    end    
+    
+    return f
+	end
+	
+	def eliminar_de_mis_propiedades(casilla)
+		@propiedades.delete_if{ |x| x.numeroCasilla == casilla.numeroCasilla}		
+	end
+
+	def obtener_propiedades_hipotecadas(hipotecada)
+		hipotecadas = Array.new
+
+		@propiedades.each do |p|
+			if(p.hipotecada && hipotecada)
+				hipotecadas << p
+			end
+
+			if(!p.hipotecada && !hipotecada)
+				hipotecadas << p
+			end
+		end
+		return hipotecadas
+	end
+
+	def tengo_saldo(cantidad)
+		return cantidad >= @saldo
+	end
+
+	def actualizar_posicion(casilla)
       
-    end
+	end
+	
+	
+    
+=begin
 
     def comprar_titulo
       
-    end
-
-
-
+	end
+	
     def ir_a_carcel(casilla)
       
-    end
+    end  
 
-
-
-    def obtener_capital
-      
-    end
-
-    def obtener_propiedades_hipotecadas(hipotecada)
-        
-    end
+    
 
     def pagar_cobrar_por_casa_hotel(cantidad)
 
@@ -127,37 +179,15 @@ module ModeloQytetet
 
     end
 
-
-
-    
-      
     def vender_propiedad(casilla)
 
     end
-
-    def cuantas_casas_hoteles_tengo
-
-    end
     
-    def eliminar_de_mis_propiedades(casilla)
     
-    end
-    
-    def es_de_mi_propiedad(casilla)
 
-    end
-    
-    def tengo_saldo(cantidad)
-
-    end
-
-
-
-
-    private :cuantas_casas_hoteles_tengo :eliminar_de_mis_propiedades, :es_de_mi_propiedad, :tengo_saldo
 =end
       
       
-      
+	private :cuantas_casas_hoteles_tengo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades, :tengo_saldo
   end
 end

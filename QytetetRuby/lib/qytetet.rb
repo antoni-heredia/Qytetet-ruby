@@ -57,6 +57,18 @@ module ModeloQytetet
       
     end
     
+    def salida_jugadores
+      casilla = @tablero.obtener_casilla_numero(0)
+      
+      #inicializamos todos los jugadores en la salida
+      @jugadores.each do |j|  
+        j.actualizar_posicion(casilla)
+        j.saldo(@@SALDO_SALIDA)
+      end
+      #elegimos un jugador al azar de todos los jugadores del array
+      @jugador_actual = @jugadores.sample
+    end
+    
     def propiedades_hipotecadas_jugador(hipotecadas)
       casillas = Array.new
       
@@ -122,9 +134,7 @@ module ModeloQytetet
       
     end
     
-    def salida_jugadores
-      
-    end
+    
 =end
     
     def inicializar_cartas_sorpresa

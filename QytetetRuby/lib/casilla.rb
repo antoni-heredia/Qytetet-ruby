@@ -38,7 +38,10 @@ module ModeloQytetet
     def esta_hipotecada
       return @titulo.hipotecada
     end
-    
+	
+	def soy_edificable()
+		return (@tipo == TipoCasilla::CALLE)
+	end
     
     #Devuelve un string con la informacion de la casill
     def to_s
@@ -106,9 +109,7 @@ module ModeloQytetet
       
     end
     
-    def soy_edificable()
-      
-    end
+    
     
     def tengo_propietario()
       
