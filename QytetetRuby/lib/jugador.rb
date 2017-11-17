@@ -5,8 +5,8 @@
 
 module ModeloQytetet
   class Jugador
-    attr_reader :nombre, :propiedades
-    attr_accessor :casillaActual, :saldo, :encarcelado, :carta_libertad
+    attr_reader :nombre, :propiedades, :saldo
+    attr_accessor :casillaActual, :encarcelado, :carta_libertad
   
     def initialize(nombre)
       @encarcelado = false

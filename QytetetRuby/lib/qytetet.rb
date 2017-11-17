@@ -63,7 +63,6 @@ module ModeloQytetet
       #inicializamos todos los jugadores en la salida
       @jugadores.each do |j|  
         j.actualizar_posicion(casilla)
-        j.saldo(@@SALDO_SALIDA)
       end
       #elegimos un jugador al azar de todos los jugadores del array
       @jugador_actual = @jugadores.sample
