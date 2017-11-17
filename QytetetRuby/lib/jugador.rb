@@ -61,7 +61,7 @@ module ModeloQytetet
     
     def puedo_vender_propiedad(casilla)
       estado = false
-      if(es_de_mi_propiedad(casilla) && !casilla.esta_hipotecada)
+      if(es_de_mi_propiedad(casilla) && !casilla.titulo.esta_hipotecada)
         estado = true
       end
       

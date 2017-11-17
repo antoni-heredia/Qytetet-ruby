@@ -74,7 +74,7 @@ module ModeloQytetet
       
       @jugador_actual.propiedades each do |propiedad|
         if (propiedad.hipotecada == hipotecadas)
-          casillas << propiedad
+          casillas << propiedad.casilla
         end
       end
       
