@@ -41,7 +41,7 @@ module ModeloQytetet
 	end
 	
 	def propietario_encarcelado()
-	  return @propietario != nil
+	  return @propietario.encarcelado
 	end
 
   def cobrar_alquiler(coste)

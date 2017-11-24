@@ -138,26 +138,51 @@ module ModeloQytetet
     end
 
     def actualizar_posicion(casilla)
-      
+      if (casilla.numeroCasilla < @casilla_actual.numeroCasilla) 
+        modificar_saldo(Qytetet.SALDO_SALIDA);
+      end
+
+      tiene_propietario = false;
+      @casilla_actual = casilla;
+
+      #Miramos si es de tipo calle
+      if (casilla.soy_edificable) 
+
+        #Si tiene propietario y si no esta encarcelado se cobrara el alquiler
+        tiene_propietario = casilla.tengo_propietario;
+        if (tiene_propietario) 
+          esta_encarcelado = casilla.preopietario_encarcelado
+          if (!esta_encarcelado) 
+            coste_alquiler = casilla.cobrar_alquiler
+            modificar_saldo(-coste_alquiler);
+          end
+        end
+      end
+
+      if (casilla.tipo == TipoCasilla::IMPUESTO) 
+        coste = casilla.coste
+        modificar_saldo(-coste)
+      end
+      return tiene_propietario;
     end
 	
 	
     def comprar_titulo
       comprar = false;
       if(@casilla_actual.soy_edificable)
-          tengo_propietario = @casilla_Actual.tengo_propietario
+        tengo_propietario = @casilla_Actual.tengo_propietario
             
-          if(!tengo_propietario)
-              coste_compra = casillaActual.coste;
+        if(!tengo_propietario)
+          coste_compra = casillaActual.coste;
                 
-              if(coste_compra <= @saldo)
-                  titulo = @casillaActual.asignar_propietario(self)
-                  @propiedades << titulo;
-                  modificar_saldo(-costeCompra);
-                  comprar = true;
-              end
-                
+          if(coste_compra <= @saldo)
+            titulo = @casillaActual.asignar_propietario(self)
+            @propiedades << titulo;
+            modificar_saldo(-costeCompra);
+            comprar = true;
           end
+                
+        end
       end
 
       return comprar;
@@ -166,15 +191,20 @@ module ModeloQytetet
     def puedo_edificar_casa(casilla)
       puedo_eficiar = false;
       if (es_de_mi_propiedad(casilla)) 
-          precio = casilla.get_precio_edificar
-          puedo_eficiar = tengo_saldo(precio);
+        precio = casilla.get_precio_edificar
+        puedo_eficiar = tengo_saldo(precio);
       end
 
       return puedo_eficiar;
     end
     
     def puedo_hipotecar(casilla)
-        return es_de_mi_propiedad(casilla);
+      return es_de_mi_propiedad(casilla);
+    end
+    
+    def pagar_cobrar_por_casa_hotel(cantidad)
+      numero_total = cuantas_casas_hoteles_tengo
+      modificar_saldo(numero_total*cantidad);
     end
 =begin
 
@@ -186,9 +216,7 @@ module ModeloQytetet
 
     
 
-    def pagar_cobrar_por_casa_hotel(cantidad)
-
-    end
+    
       
     def pagar_libertad(cantidad)
       
@@ -215,6 +243,6 @@ module ModeloQytetet
 =end
       
       
-          private :cuantas_casas_hoteles_tengo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades, :tengo_saldo
-        end
-      end
+    private :cuantas_casas_hoteles_tengo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades, :tengo_saldo
+  end
+end

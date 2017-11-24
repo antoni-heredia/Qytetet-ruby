@@ -96,6 +96,10 @@ module ModeloQytetet
       cantidad_recibida = calcular_valor_hipoteca        
       return cantidad_recibida;
     end
+    
+    def preopietario_encarcelado()
+      return @titulo.propietario_encarcelado
+    end
 =begin
     
     
@@ -103,16 +107,7 @@ module ModeloQytetet
     
     def cancelar_hipoteca()
       
-    end
-    
-    def cobrar_alquiler()
-      int costeTotal = titulo.getAlquilerBase();
-        costeTotal += numCasas * 0.5 + numHoteles * 2;
-        titulo.cobrarAlquiler(costeTotal);
-
-        return costeTotal;
-    end
-    
+    end    
     
     
     def edificar_hotel()
@@ -132,9 +127,7 @@ module ModeloQytetet
       
     end
     
-    def preopietario_encarcelado()
-      
-    end
+    
     
     
     

@@ -90,7 +90,7 @@ module ModeloQytetet
       if (casilla.soyEdificable()) 
           se_puede_edificar = casilla.se_puede_edificar_casa
           if (se_puede_edificar) 
-              puedo_edificar = jugadorActual.puedo_edificar(casilla);
+              puedo_edificar = @jugadorActual.puedo_edificar(casilla);
               if (puedo_edificar) 
                   coste_edificar_casa = casilla.edificar_casa
                   @jugadorActual.modificar_saldo(-coste_edificar_casa);
@@ -120,10 +120,50 @@ module ModeloQytetet
 
       return puedo_hipotecar_propiedad;
     end
-=begin
+    
     def aplicar_sorpresa
-      
+       tiene_propietario = false
+        if (@carta_actual.tipo == TipoSorpresa::PAGARCOBRAR) 
+            @jugadorActual.modificar_saldo(@carta_actual.valor);
+
+        elsif (@carta_actual.tipo == TipoSorpresa::IRACASILLA)
+            es_carcel = tablero.es_casilla_carcel(@carta_actual.valor);
+
+            if (es_carcel)
+                encarcelar_jugador
+            else
+                nueva_casilla = tablero.obtener_casilla_numero(@carta_actual.valor);
+                tiene_propietario = @jugadorActual.actualizar_posicion(nueva_casilla);
+            end
+
+        elsif (@carta_actual.tipo == TipoSorpresa::PORCASAHOTEL)
+            @jugadorActual.pagar_cobrar_por_casa_hotel(@carta_actual.valor);
+
+        elsif (@carta_actual.tipo == TipoSorpresa::PORJUGADOR) 
+            @jugadores.each do |jugador|
+                if (@jugadorActual != jugador) 
+                    jugador.modificar_saldo(@carta_actual.valor);
+                    @jugadorActual.modificar_saldo(-@carta_actual.valor);
+                end
+
+            end
+
+        end
+
+        if (@carta_actual.tipo == TipoSorpresa::SALIRCARCEL)
+          @jugadorActual.carta_libertad = @carta_actual
+        else
+          mazo << (@carta_actual);
+        end
+
+      return tiene_propietario;
     end
+    
+    def encarcelar_jugador
+      puts "por implementar"
+    end
+=begin
+   
     
     def cancelar_hipoteca(casilla)
       
@@ -162,9 +202,7 @@ module ModeloQytetet
       
     end
     
-    def encarcelar_jugador
-      
-    end
+    
     
     
 =end
