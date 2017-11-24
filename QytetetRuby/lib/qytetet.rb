@@ -80,7 +80,46 @@ module ModeloQytetet
       return casillas
       
     end
+    
+    def comprar_titulo_propiedad
+      return @jugador_actual.comprar_titulo
+    end
+    
+    def edificar_casa(casilla)
+      puedo_edificar = false;
+      if (casilla.soyEdificable()) 
+          se_puede_edificar = casilla.se_puede_edificar_casa
+          if (se_puede_edificar) 
+              puedo_edificar = jugadorActual.puedo_edificar(casilla);
+              if (puedo_edificar) 
+                  coste_edificar_casa = casilla.edificar_casa
+                  @jugadorActual.modificar_saldo(-coste_edificar_casa);
 
+              end
+          end
+      end
+      return puedo_edificar;
+    end
+    
+    
+    def hipotecar_propiedad(casilla)
+      puedo_hipotecar_propiedad = false;
+      if (casilla.soyEdificable()) 
+          se_puede_hipotecar = !casilla.esta_hipotecada
+
+          if (se_puede_hipotecar) 
+              puedo_hipotecar = @jugadorActual.puedo_hipotecar(casilla);
+
+              if (puedo_hipotecar) 
+                  cantidad_recibida = casilla.hipotecar
+                  @jugadorActual.modificar_saldo(cantidad_recibida);
+                  puedo_hipotecar_propiedad = true;
+              end
+          end
+      end
+
+      return puedo_hipotecar_propiedad;
+    end
 =begin
     def aplicar_sorpresa
       
@@ -90,22 +129,16 @@ module ModeloQytetet
       
     end
   
-    def comprar_titulo_propiedad
-      
-    end
+    
   
-    def edificar_casa(casilla)
-      
-    end
+    
     
     
     def edificar_hotel(casilla)
       
     end
     
-    def hipotecar_propiedad(casilla)
-      
-    end
+    
   
     
     
@@ -138,40 +171,40 @@ module ModeloQytetet
     
     def inicializar_cartas_sorpresa
       @mazo << Sorpresa.new("Te hemos pillado copiando en un examen " +
-                            "¡Debes ir a la carcel!" , 9, 
-                            TipoSorpresa::IRACASILLA)
+          "¡Debes ir a la carcel!" , 9, 
+        TipoSorpresa::IRACASILLA)
       @mazo<< Sorpresa.new("Son las 15:15 y las 15:30 tienes practicas " + 
-                            "de EC. Deberias ir a por un cafe antes.",12, 
-                            TipoSorpresa::IRACASILLA)
+          "de EC. Deberias ir a por un cafe antes.",12, 
+        TipoSorpresa::IRACASILLA)
       @mazo<< Sorpresa.new("Tu profesor no ha venido y no a avisado antes. " +
-                            "Te toca ir a las mesas rojas",12, 
-                            TipoSorpresa::IRACASILLA)
+          "Te toca ir a las mesas rojas",12, 
+        TipoSorpresa::IRACASILLA)
                           
       @mazo<< Sorpresa.new("El director de la ETSIIT se ha apiadado de ti." +
-                            "Sales de la carcel.", 0, 
-                            TipoSorpresa::SALIRCARCEL)
+          "Sales de la carcel.", 0, 
+        TipoSorpresa::SALIRCARCEL)
                           
       @mazo<< Sorpresa.new("Has suspendido PDOO en la convocatoria " +
-                            "extraordinaria.¡Paga doble matricula!", -130, 
-                            TipoSorpresa::PAGARCOBRAR)
+          "extraordinaria.¡Paga doble matricula!", -130, 
+        TipoSorpresa::PAGARCOBRAR)
       @mazo<< Sorpresa.new("Has conseguido una matricula de honor. " +
-                            "¡ENHORABUENA EMPOLLON!. Te devuelven el dinero", 66, 
-                            TipoSorpresa::PAGARCOBRAR)
+          "¡ENHORABUENA EMPOLLON!. Te devuelven el dinero", 66, 
+        TipoSorpresa::PAGARCOBRAR)
                           
       @mazo<< Sorpresa.new("Empieza un nuevo mes. Tienes que hacerle la " +
-                            "transferencia al casero.", -180, 
-                            TipoSorpresa::PORCASAHOTEL)
+          "transferencia al casero.", -180, 
+        TipoSorpresa::PORCASAHOTEL)
       @mazo<< Sorpresa.new("El fin de curso a llegado. El casero te devuelve" +
-                            "la fianza.", 180, 
-                            TipoSorpresa::PORCASAHOTEL)
+          "la fianza.", 180, 
+        TipoSorpresa::PORCASAHOTEL)
       @mazo<< Sorpresa.new("Tus compañeros te ofrecen dinero para que le " +
-                             "pases las practicas. Todos hacen un bote " + 
-                             "y te lo dan",25,
-                            TipoSorpresa::PORJUGADOR)
+          "pases las practicas. Todos hacen un bote " + 
+          "y te lo dan",25,
+        TipoSorpresa::PORJUGADOR)
       @mazo<< Sorpresa.new("Tus compañeros te han pillado copiandote. " + 
-                            "Todos te piden dinero por su silencio. " + 
-                            "Te toca pagar.", 15,
-                            TipoSorpresa::PORJUGADOR)
+          "Todos te piden dinero por su silencio. " + 
+          "Te toca pagar.", 15,
+        TipoSorpresa::PORJUGADOR)
     end
     
     def inicializar_jugadores(nombres)
@@ -185,9 +218,9 @@ module ModeloQytetet
     end
     
     def inicializar_juego(nombres)
-        inicializar_tablero()
-        inicializar_cartas_sorpresa()
-        inicializar_jugadores(nombres)
+      inicializar_tablero()
+      inicializar_cartas_sorpresa()
+      inicializar_jugadores(nombres)
     end
     
     def to_s

@@ -54,27 +54,66 @@ module ModeloQytetet
       return mensaje
     end
     
+    def tengo_propietario()
+      return @titulo.tengo_propietario
+    end
     
-=begin
     def asignar_propietario(jugador)
-      
+      titulo.propietario(jugador);
+      return titulo;
     end
     
-    def calcular_valor_hipoteca()
-      
+    def se_puede_edificar_casa
+      return @numCasas < 4
     end
+    
+    def get_precio_edificar()
+      @titulo.precio_edificar
+    end
+    
+    def edificar_casa()
+       @numCasas=@numCasas + 1
+       return titulo.precio_edificar
+    end
+    
+    def cobrar_alquiler
+      coste_total = @titulo.alquiler_base
+      coste_total += @numCasas * 0.5 + @numHoteles * 2;
+      @titulo.cobrar_alquiler(coste_total);
+
+      return coste_total;
+    end
+    
+    def calcular_valor_hipoteca
+      hipoteca_base = @titulo.hipoteca_base
+      valor =  hipoteca_base + (@numCasas * 0.5 * hipoteca_base + @numHoteles * hipoteca_base);
+
+      return valor;
+    end
+    
+    def hipotecar
+      @titulo.hipotecada = true
+      cantidad_recibida = calcular_valor_hipoteca        
+      return cantidad_recibida;
+    end
+=begin
+    
+    
+    
     
     def cancelar_hipoteca()
       
     end
     
     def cobrar_alquiler()
-      
+      int costeTotal = titulo.getAlquilerBase();
+        costeTotal += numCasas * 0.5 + numHoteles * 2;
+        titulo.cobrarAlquiler(costeTotal);
+
+        return costeTotal;
     end
     
-    def edificar_casa()
-      
-    end
+    
     
     def edificar_hotel()
       
@@ -85,13 +124,9 @@ module ModeloQytetet
       
     end
     
-    def get_precio_edificar()
-      
-    end
     
-    def hipotecar()
-      
-    end
+    
+    
     
     def precio_total_comprar()
       
@@ -101,9 +136,7 @@ module ModeloQytetet
       
     end
     
-    def se_puede_edificar_casa()
-      
-    end
+    
     
     def se_puede_edificar_hotel()
       
@@ -111,9 +144,7 @@ module ModeloQytetet
     
     
     
-    def tengo_propietario()
-      
-    end
+    
     
     def vender_titulo()
       

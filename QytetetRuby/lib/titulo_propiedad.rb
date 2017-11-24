@@ -43,15 +43,11 @@ module ModeloQytetet
 	def propietario_encarcelado()
 	  return @propietario != nil
 	end
-=begin
-    def cobrar_alquiler(coste)
-      
-    end
 
-    
+  def cobrar_alquiler(coste)
+    @propietario.modificar_saldo(coste);
+  end
 
-
-=end
     
     
     

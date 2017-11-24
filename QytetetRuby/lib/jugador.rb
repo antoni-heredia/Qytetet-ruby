@@ -77,77 +77,108 @@ module ModeloQytetet
     end
 	
 	
-	def cuantas_casas_hoteles_tengo
-		cant = 0
+    def cuantas_casas_hoteles_tengo
+      cant = 0
 
-		@propiedades.each do |p|
-			cant +=  p.casilla.numHoteles + p.casilla.numCasas
-		end
+      @propiedades.each do |p|
+        cant +=  p.casilla.numHoteles + p.casilla.numCasas
+      end
 
-		return cant
-	end
+      return cant
+    end
 
-	def obtener_capital
-		capital = @saldo
+    def obtener_capital
+      capital = @saldo
 		
-		@propiedades.each do |p|	
-			capita += p.casilla.coste
-			capital += self.cuantas_casas_hoteles_tengo*t.precio_edificar
+      @propiedades.each do |p|	
+        capita += p.casilla.coste
+        capital += self.cuantas_casas_hoteles_tengo*t.precio_edificar
 			
-			if(t.hipotecada)
-				capital -= t.hipoteca_base
-			end
-		end
+        if(t.hipotecada)
+          capital -= t.hipoteca_base
+        end
+      end
 
-        return capital
-	end
+      return capital
+    end
 
-	def es_de_mi_propiedad(casilla)
-		f = false;
+    def es_de_mi_propiedad(casilla)
+      f = false;
 
-		@propiedades.each do |p|
-      if(p.casilla.numeroCasilla == casilla.numeroCasilla)
+      @propiedades.each do |p|
+        if(p.casilla.numeroCasilla == casilla.numeroCasilla)
           f = true	
-      end			
-    end    
+        end			
+      end    
     
-    return f
-	end
+      return f
+    end
 	
-	def eliminar_de_mis_propiedades(casilla)
-		@propiedades.delete_if{ |x| x.numeroCasilla == casilla.numeroCasilla}		
-	end
+    def eliminar_de_mis_propiedades(casilla)
+      @propiedades.delete_if{ |x| x.numeroCasilla == casilla.numeroCasilla}		
+    end
 
-	def obtener_propiedades_hipotecadas(hipotecada)
-		hipotecadas = Array.new
+    def obtener_propiedades_hipotecadas(hipotecada)
+      hipotecadas = Array.new
 
-		@propiedades.each do |p|
-			if(p.hipotecada && hipotecada)
-				hipotecadas << p
-			end
+      @propiedades.each do |p|
+        if(p.hipotecada && hipotecada)
+          hipotecadas << p
+        end
 
-			if(!p.hipotecada && !hipotecada)
-				hipotecadas << p
-			end
-		end
-		return hipotecadas
-	end
+        if(!p.hipotecada && !hipotecada)
+          hipotecadas << p
+        end
+      end
+      return hipotecadas
+    end
 
-	def tengo_saldo(cantidad)
-		return cantidad >= @saldo
-	end
+    def tengo_saldo(cantidad)
+      return cantidad >= @saldo
+    end
 
-	def actualizar_posicion(casilla)
+    def actualizar_posicion(casilla)
       
-	end
+    end
 	
 	
+    def comprar_titulo
+      comprar = false;
+      if(@casilla_actual.soy_edificable)
+          tengo_propietario = @casilla_Actual.tengo_propietario
+            
+          if(!tengo_propietario)
+              coste_compra = casillaActual.coste;
+                
+              if(coste_compra <= @saldo)
+                  titulo = @casillaActual.asignar_propietario(self)
+                  @propiedades << titulo;
+                  modificar_saldo(-costeCompra);
+                  comprar = true;
+              end
+                
+          end
+      end
+
+      return comprar;
+    end
     
+    def puedo_edificar_casa(casilla)
+      puedo_eficiar = false;
+      if (es_de_mi_propiedad(casilla)) 
+          precio = casilla.get_precio_edificar
+          puedo_eficiar = tengo_saldo(precio);
+      end
+
+      return puedo_eficiar;
+    end
+    
+    def puedo_hipotecar(casilla)
+        return es_de_mi_propiedad(casilla);
+    end
 =begin
 
-    def comprar_titulo
-      
-	end
+    
 	
     def ir_a_carcel(casilla)
       
@@ -163,17 +194,13 @@ module ModeloQytetet
       
     end
       
-    def puedo_edificar_casa(casilla)
-
-    end
+    
 
     def puedo_edificar_hotel(casilla)
 
     end
 
-    def puedo_hipotecar(casilla)
-
-    end
+   
 
     def puedo_pagar_hipoteca(casilla)
 
@@ -188,6 +215,6 @@ module ModeloQytetet
 =end
       
       
-	private :cuantas_casas_hoteles_tengo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades, :tengo_saldo
-  end
-end
+          private :cuantas_casas_hoteles_tengo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades, :tengo_saldo
+        end
+      end
