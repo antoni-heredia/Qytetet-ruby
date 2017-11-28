@@ -6,7 +6,7 @@
 module ModeloQytetet
   class Jugador
     attr_reader :nombre, :propiedades, :saldo
-    attr_accessor :casillaActual, :encarcelado, :carta_libertad
+    attr_accessor :casilla_actual, :encarcelado, :carta_libertad
   
     def initialize(nombre)
       @encarcelado = false
@@ -198,6 +198,15 @@ module ModeloQytetet
       return puedo_eficiar;
     end
     
+    def puedo_edificar_hotel(casilla)
+      puedo_edificar = false;
+      if(es_de_mi_propiedad(casilla))
+        precio = casilla.get_precio_edificar
+        puedo_edificar = tengo_saldo(precio)
+      end
+      return puedo_edificar
+    end
+    
     def puedo_hipotecar(casilla)
       return es_de_mi_propiedad(casilla);
     end
@@ -206,43 +215,32 @@ module ModeloQytetet
       numero_total = cuantas_casas_hoteles_tengo
       modificar_saldo(numero_total*cantidad);
     end
-=begin
-
     
-	
-    def ir_a_carcel(casilla)
-      
-    end  
-
-    
-
-    
-      
-    def pagar_libertad(cantidad)
-      
-    end
-      
-    
-
-    def puedo_edificar_hotel(casilla)
-
-    end
-
-   
-
-    def puedo_pagar_hipoteca(casilla)
-
-    end
-
     def vender_propiedad(casilla)
-
+      precio_venta = casilla.vender_titulo;
+      modificar_saldo(precio_venta);
+      eliminar_de_mis_propieades(casilla);
+    end
+    def ir_a_carcel(casilla)
+      @casilla_actual = casilla
+      @encarcelado = true
+    end 
+    
+    def pagar_libertad(cantidad)
+       saldo = tengo_saldo(cantidad)
+       if saldo
+         modificar_saldo(-cantidad)
+       end
+      
+    end
+    def puedo_pagar_hipoteca(casilla)
+      puedo_pagar = false
+      if(casilla.get_coste_hipoteca <= saldo && es_de_mi_propiedad(casilla))
+        puedo_pagar = true
+      end
+      return puedo_pagar
     end
     
-    
-
-=end
-      
-      
     private :cuantas_casas_hoteles_tengo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades, :tengo_saldo
   end
 end

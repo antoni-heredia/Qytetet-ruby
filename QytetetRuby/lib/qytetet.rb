@@ -153,54 +153,139 @@ module ModeloQytetet
         if (@carta_actual.tipo == TipoSorpresa::SALIRCARCEL)
           @jugadorActual.carta_libertad = @carta_actual
         else
-          mazo << (@carta_actual);
+          @mazo<< (@carta_actual);
         end
 
       return tiene_propietario;
     end
     
     def encarcelar_jugador
-      puts "por implementar"
-    end
-=begin
-   
-    
-    def cancelar_hipoteca(casilla)
       
-    end
-  
-    
-  
-    
-    
-    
-    def edificar_hotel(casilla)
-      
+      if(!@jugador_actual.tengo_carta_libertad)
+        casilla_carcel = @tablero.carcel
+        @jugador_Actual.ir_a_carcel(casilla_carcel)
+      else
+        carta = @jugador_actual.devolver_carta_libertad
+        @mazo<< carta
+      end
     end
     
-    
-  
-    
+    def vender_propiedad(casilla)
+      puedo_vender = false;
+      if casilla.soy_edificable()
+       
+        puedo_vender = @jugador_actual.puedo_vender_propiedad(casilla);
+        if puedo_vender
+          @jugador_actual.vender_casilla;
+        end
+        
+      end
+      return puedo_vender
+    end
     
     def intentar_salir_carcel(metodo)
+      libre = false
       
+      if metodo == MetodoSalirCarcel::TIRANDODADO
+        
+        valor_dado = dado.tirar
+        libre = valor_dado > 5
+       
+      elsif metodo == MetodoSalirCarcel::PAGANDOLIBERTAD
+      
+        libre = @jugador_actual.pagar_libertad(-@@PRECIO_LIBERTAD)
+        
+      end
+      
+      if libre
+        @jugador_actual.encarcelado = false
+      end
+      
+      return libre
     end
     
     def jugar()
+      valor_dado = @dado.tirar
+      casilla_posicion = @jugador_actual.casilla_actual
+      nueva_casilla = @tablero.obtenet_nueva_casilla(casilla_posicion, valor_dado)
+      tiene_propietario=@jugador.actualizar_posicion(nueva_casilla)
+      
+      if !nueva_casilla.soy_edificable
+        
+        if nueva_casilla.tipo == TipoCasilla::JUEZ
+          encarcelar_jugador
+          
+        elsif nueva_casilla.tipo == TipoCasilla::SORPRESA
+          @carta_actual = mazo[0]
+          @mazo.shift
+          
+        end
+      end
+      return tiene_propietario
+    end
+    
+    def edificar_hotel(casilla)
+      puedoEdificar = false
+      
+      if casilla.soy_edificable
+        se_puede_edificar = casilla.se_puede_edificar_hotel
+        
+        if se_puede_edificar
+          puedo_edificar = @jugadorActual.puedo_edificar_hotel
+          
+          if puedo_edificar
+            coste_edificar_hotel = casilla.edificar_hotel
+            @jugadorActual.modificar_saldo(-coste_edificar)
+          end
+        end  
+      end
+      return puedo_edificar
+    end
+    
+    def cancelar_hipoteca(casilla)
+      cancelada = false
+      if casilla.soyEdificable()
+        esta_hipotecada = casilla.esta_hipotecada
+        if esta_hipotecada
+          if @jugador_actual.puedoPagarHipoteca(casilla)
+            precio_cancelacion = casilla.cancelar_hipoteca
+            @jugador_actual.modificar_saldo(-precio_cancelacion)
+            cancelada = true
+          end
+        end
+      end
+      return cancelada
+    end
+    
+=begin
+   def obtener_ranking
+      
       
     end
     
-    def obtener_ranking
-      
-    end
+    
+  
+    
+  
     
     
     
     
     
-    def vender_propiedad(casilla)
-      
-    end
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

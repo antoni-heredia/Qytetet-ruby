@@ -100,24 +100,48 @@ module ModeloQytetet
     def preopietario_encarcelado()
       return @titulo.propietario_encarcelado
     end
+    
+    def vender_titulo()
+      @numCasas = 0
+      @numHoteles = 0
+      @titulo.setPropietario(nil);
+      precio_compra = @coste + (@nunCasas + @numHoteles) * @titulo.precio_edificar;
+      precio_venta = precio_compra + @titulo.factor_revalorizacion * precioCompra
+      
+      return precio_venta
+    end
+    
+    def se_puede_edificar_hotel()
+      return @num_casas > 4
+    end
+    
+    def edificar_hotel()
+      @numCasas = @numCasas - 4
+      return titulo.precio_edificar
+    end
+    
+    def get_coste_hipoteca
+      return calcular_valor_hipoteca * 1.1
+    end
+    
+    def cancelar_hipoteca()
+      valor_cancelar = get_coste_hipoteca
+      titulo.hipotecada = false
+      
+      return valor_cancelar
+    end    
 =begin
     
     
     
     
-    def cancelar_hipoteca()
-      
-    end    
     
     
-    def edificar_hotel()
-      
-    end
+    
+    
     
 
-    def get_coste_hipoteca()
-      
-    end
+    
     
     
     
@@ -131,17 +155,13 @@ module ModeloQytetet
     
     
     
-    def se_puede_edificar_hotel()
-      
-    end
     
     
     
     
     
-    def vender_titulo()
-      
-    end
+    
+    
 
     
 =end

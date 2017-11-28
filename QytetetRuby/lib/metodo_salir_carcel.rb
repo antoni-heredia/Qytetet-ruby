@@ -4,7 +4,7 @@
 # and open the template in the editor.
 
 module ModeloQytetet
-  module MetodoSalirClase
+  module MetodoSalirCarcel
       TIRANDODADO = :TirandoDado
       PAGANDOLIBERTAD = :PagandoLiberdad
   end
