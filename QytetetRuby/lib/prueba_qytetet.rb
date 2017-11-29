@@ -21,6 +21,7 @@ module ModeloQytetet
       nombres << "Mafi"
       @juego.inicializar_juego(nombres)
       puts @juego.to_s
+      puts @juego.obtener_ranking
     end
     
   end

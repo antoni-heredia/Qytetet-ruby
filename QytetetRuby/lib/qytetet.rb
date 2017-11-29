@@ -257,40 +257,19 @@ module ModeloQytetet
       return cancelada
     end
     
-=begin
-   def obtener_ranking
+    def obtener_ranking
+      ranking = Hash.new
+      
+      @jugadores.each do |jugador|
+        capital = jugador.obtener_capital
+        ranking[jugador.nombre] = capital
+      end
+      ranking = Hash[ ranking.sort_by { |key, val| val } ]
+      
       
       
     end
-    
-    
-  
-    
-  
-    
-    
-    
-    
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-=end
+
     
     def inicializar_cartas_sorpresa
       @mazo << Sorpresa.new("Te hemos pillado copiando en un examen " +
