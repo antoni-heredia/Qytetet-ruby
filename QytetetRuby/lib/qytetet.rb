@@ -70,7 +70,7 @@ module ModeloQytetet
     def propiedades_hipotecadas_jugador(hipotecadas)
       casillas = Array.new
       
-      @jugador_actual.propiedades each do |propiedad|
+      @jugador_actual.propiedades.each do |propiedad|
         if (propiedad.hipotecada == hipotecadas)
           casillas << propiedad.casilla
         end
@@ -86,10 +86,10 @@ module ModeloQytetet
     
     def edificar_casa(casilla)
       puedo_edificar = false;
-      if (casilla.soyEdificable()) 
+      if (casilla.soy_edificable()) 
           se_puede_edificar = casilla.se_puede_edificar_casa
           if (se_puede_edificar) 
-              puedo_edificar = @jugador_actual.puedo_edificar(casilla);
+              puedo_edificar = @jugador_actual.puedo_edificar_casa(casilla);
               if (puedo_edificar) 
                   coste_edificar_casa = casilla.edificar_casa
                   @jugador_actual.modificar_saldo(-coste_edificar_casa);
@@ -176,7 +176,7 @@ module ModeloQytetet
        
         puedo_vender = @jugador_actual.puedo_vender_propiedad(casilla);
         if puedo_vender
-          @jugador_actual.vender_casilla;
+          @jugador_actual.vender_propiedad(casilla);
         end
         
       end
@@ -235,7 +235,7 @@ module ModeloQytetet
           
           if puedo_edificar
             coste_edificar_hotel = casilla.edificar_hotel
-            @jugador_actual.modificar_saldo(-coste_edificar)
+            @jugador_actual.modificar_saldo(-coste_edificar_hotel)
           end
         end  
       end

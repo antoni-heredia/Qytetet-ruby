@@ -104,15 +104,22 @@ module ModeloQytetet
     def vender_titulo()
       @numCasas = 0
       @numHoteles = 0
-      @titulo.setPropietario(nil);
-      precio_compra = @coste + (@nunCasas + @numHoteles) * @titulo.precio_edificar;
-      precio_venta = precio_compra + @titulo.factor_revalorizacion * precioCompra
+      @titulo.propietario = nil;
+      puts @coste
+      puts @numCasas
+      puts @numHoteles
+      puts @titulo.precio_edificar
+      precio_compra = @numCasas + @numHoteles
+      precio_compra = precio_compra * @titulo.precio_edificar
+      precio_compra = precio_compra + @coste
+      #precio_compra = @coste + (@nunCasas + @numHoteles) * @titulo.precio_edificar;
+      precio_venta = precio_compra + @titulo.factor_revalorizacion * precio_compra
       
       return precio_venta
     end
     
     def se_puede_edificar_hotel()
-      return @num_casas > 4
+      return @num_casas == 4
     end
     
     def edificar_hotel()

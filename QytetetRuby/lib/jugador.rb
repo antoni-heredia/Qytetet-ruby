@@ -61,7 +61,7 @@ module ModeloQytetet
     
     def puedo_vender_propiedad(casilla)
       estado = false
-      if(es_de_mi_propiedad(casilla) && !casilla.titulo.esta_hipotecada)
+      if(es_de_mi_propiedad(casilla) && !casilla.titulo.hipotecada)
         estado = true
       end
       
@@ -115,7 +115,8 @@ module ModeloQytetet
     end
 	
     def eliminar_de_mis_propiedades(casilla)
-      @propiedades.delete_if{ |x| x.numeroCasilla == casilla.numeroCasilla}		
+      @propiedades.reject!{ |x| x.numeroCasilla == casilla.numeroCasilla}		
+      #@propiedades.delete(casilla)		
     end
 
     def obtener_propiedades_hipotecadas(hipotecada)
@@ -220,7 +221,7 @@ module ModeloQytetet
     def vender_propiedad(casilla)
       precio_venta = casilla.vender_titulo;
       modificar_saldo(precio_venta);
-      eliminar_de_mis_propieades(casilla);
+      eliminar_de_mis_propiedades(casilla);
     end
     def ir_a_carcel(casilla)
       @casilla_actual = casilla
