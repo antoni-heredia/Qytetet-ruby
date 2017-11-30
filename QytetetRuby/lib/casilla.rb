@@ -75,7 +75,11 @@ module ModeloQytetet
        @numCasas=@numCasas + 1
        return titulo.precio_edificar
     end
-    
+    def precio_alquiler
+      coste_total = @titulo.alquiler_base
+      coste_total += @numCasas * 0.5 + @numHoteles * 2;
+      return coste_total;
+    end
     def cobrar_alquiler
       coste_total = @titulo.alquiler_base
       coste_total += @numCasas * 0.5 + @numHoteles * 2;

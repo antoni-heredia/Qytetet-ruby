@@ -15,8 +15,9 @@ module InterfazTextualQytetet
     def self.incializar_juego()
         
       nombres = Array.new
-      nombres << "Juan"
-      nombres << "Pepe"
+      nombres = @@vista.obtener_nombre_jugadores
+      #nombres << "Juan"
+      #nombres << "Pepe"
       @@juego.inicializar_juego(nombres)
       @@jugador = @@juego.jugador_actual
       @@casilla = @@jugador.casilla_actual
@@ -71,18 +72,25 @@ module InterfazTextualQytetet
     end
     
     def self.casilla_tipo_calle(no_tiene_propietario)
-      @@vista.mostrar(@@casilla.to_s)
+      @@vista.mostrar("Numero de la casilla actual es " + @@casilla.numeroCasilla.to_s)
+      @@vista.mostrar("Nombre de la casilla actual es " + @@casilla.titulo.nombre)
+      
       if(!no_tiene_propietario)
+        @@vista.mostrar("La casilla no tiene propietario")
         comprar = @@vista.elegir_quiero_comprar
         if(comprar)
           if(@@juego.comprar_titulo_propiedad)
-            @@vista.mostrar("Se ha comprado la propiedad");
+            @@vista.mostrar("Se ha comprado la propiedad su saldo actual es " + 
+              @@jugador.saldo.to_s);
+            
           else
             @@vista.mostrar("No se ha podido comprar la propiedad");                        
           end
         end
+      else
+        @@vista.mostrar("La casilla actual tiene propietario, tiene que pagar " + @@casilla.precio_alquiler.to_s +
+          "\nSu saldo actual es de " + @@jugador.saldo)
       end
-      
     end
     
     def self.casilla_tipo_sorpresa(no_tiene_propietario)
@@ -107,6 +115,7 @@ module InterfazTextualQytetet
     end
     
     def self.esta_encarcelado
+      @@vista.mostrar("Esta en la casilla carcel")
       libre = false
       opcion_carcel = @@vista.menu_salir_carcel
       if( opcion_carcel == 1)
@@ -120,6 +129,11 @@ module InterfazTextualQytetet
     def self.esta_libre
       @@vista.pausa
       no_tiene_propietario = @@juego.jugar
+      num_dado = @@jugador.casilla_actual.numeroCasilla - @@casilla.numeroCasilla
+      if(num_dado < 0)
+        num_dado = num_dado + 20
+      end
+      @@vista.mostrar("Saco un " + num_dado.to_s + " al tirar el dado")
       @@casilla = @@jugador.casilla_actual
       @@vista.mostrar("\n Estado actual del jugador: " + @@jugador.to_s);
             
@@ -153,7 +167,8 @@ module InterfazTextualQytetet
     
     def self.desarrollo_juego
       while(!bancarrota)
-        @@vista.mostrar("Turno de: \n"+@@jugador.to_s)
+        @@vista.mostrar("Turno de: "+@@jugador.nombre)
+        @@vista.mostrar("Casilla actual numero: " + @@casilla.numeroCasilla.to_s)
         libre = true
         if(@@jugador.encarcelado)
           libre = esta_encarcelado
