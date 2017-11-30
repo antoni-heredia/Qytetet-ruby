@@ -163,7 +163,7 @@ module ModeloQytetet
       
       if(!@jugador_actual.tengo_carta_libertad)
         casilla_carcel = @tablero.carcel
-        @jugador_Actual.ir_a_carcel(casilla_carcel)
+        @jugador_actual.ir_a_carcel(casilla_carcel)
       else
         carta = @jugador_actual.devolver_carta_libertad
         @mazo<< carta
@@ -186,21 +186,20 @@ module ModeloQytetet
     def intentar_salir_carcel(metodo)
       libre = false
       
-      if metodo == MetodoSalirCarcel::TIRANDODADO
+      if metodo == ModeloQytetet::MetodoSalirCarcel::TIRANDODADO
         
         valor_dado = dado.tirar
         libre = valor_dado > 5
        
-      elsif metodo == MetodoSalirCarcel::PAGANDOLIBERTAD
+      else metodo == ModeloQytetet::MetodoSalirCarcel::PAGANDOLIBERTAD
       
-        libre = @jugador_actual.pagar_libertad(-@@PRECIO_LIBERTAD)
+        libre = @jugador_actual.pagar_libertad(@@PRECIO_LIBERTAD)
         
       end
       
       if libre
         @jugador_actual.encarcelado = false
       end
-      
       return libre
     end
     

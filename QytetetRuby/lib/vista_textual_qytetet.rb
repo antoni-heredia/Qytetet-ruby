@@ -64,7 +64,7 @@ module InterfazTextualQytetet
       salida=seleccion_menu(menuSC)
       mostrar( 'has elegido')
       mostrar(salida)
-      salida
+      return salida
     end
   
     def elegir_quiero_comprar

@@ -138,7 +138,7 @@ module ModeloQytetet
     end
 
     def tengo_saldo(cantidad)
-      return cantidad >= @saldo
+      return cantidad <= @saldo
     end
 
     def actualizar_posicion(casilla)
@@ -235,7 +235,7 @@ module ModeloQytetet
        if saldo
          modificar_saldo(-cantidad)
        end
-      
+      return saldo
     end
     def puedo_pagar_hipoteca(casilla)
       puedo_pagar = false
