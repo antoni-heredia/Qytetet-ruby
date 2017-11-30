@@ -23,8 +23,13 @@ module InterfazTextualQytetet
       Integer(captura)  
 
     end
-  
-  
+    
+
+    def pausa
+      mostrar("Introduzca enter para continuar: ")
+      gets.chomp
+    end
+    
     def comprobar_opcion(captura,min,max)
       # metodo para comprobar si la opcion introducida es correcta, usado por seleccion_menu
       valido=true
@@ -63,7 +68,16 @@ module InterfazTextualQytetet
     end
   
     def elegir_quiero_comprar
-      #se pide si o no se quiere comprar una propiedad
+      mostrar( 'Quiere comprar la propiedad')
+      menuSC=[[0, 'Comprar propiedad'], [1, 'No comprar propiedad']]
+      salida=seleccion_menu(menuSC)
+      mostrar( 'has elegido')
+      mostrar(salida)
+      if(salida == 0)
+        true
+      else
+        false
+      end
     end
   
  

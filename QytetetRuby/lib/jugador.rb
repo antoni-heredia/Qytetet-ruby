@@ -158,7 +158,7 @@ module ModeloQytetet
           end
         end
       end
-
+      
       if (casilla.tipo == TipoCasilla::IMPUESTO) 
         coste = casilla.coste
         modificar_saldo(-coste)
@@ -170,15 +170,16 @@ module ModeloQytetet
     def comprar_titulo
       comprar = false;
       if(@casilla_actual.soy_edificable)
-        tengo_propietario = @casilla_Actual.tengo_propietario
-            
+        
+        tengo_propietario = @casilla_actual.tengo_propietario
+        
         if(!tengo_propietario)
-          coste_compra = casillaActual.coste;
+          coste_compra = @casilla_actual.coste;
                 
           if(coste_compra <= @saldo)
-            titulo = @casillaActual.asignar_propietario(self)
+            titulo = @casilla_actual.asignar_propietario(self)
             @propiedades << titulo;
-            modificar_saldo(-costeCompra);
+            modificar_saldo(-coste_compra);
             comprar = true;
           end
                 

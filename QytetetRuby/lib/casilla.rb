@@ -29,8 +29,8 @@ module ModeloQytetet
     end
     
     #construtor para casillas que no son calle
-    def self.crear_no_calle(numeroCasilla, coste, tipo)
-      self.new(numeroCasilla, coste, tipo, nil)
+    def self.crear_no_calle(numeroCasilla, tipo)
+      self.new(numeroCasilla, nil, tipo, nil)
     end
     
     
@@ -45,10 +45,10 @@ module ModeloQytetet
     
     #Devuelve un string con la informacion de la casill
     def to_s
-      mensaje = "\nNumero casilla #{@numeroCasilla}\nCoste #{@coste}\nTipo #{@tipo}\n"
+      mensaje = "\nNumero casilla #{@numeroCasilla}\nTipo #{@tipo}\n"
       
       if(tipo == TipoCasilla::CALLE)
-        mensaje += "\nTitulo = "+@titulo.to_s()+"\nNumero hoteles #{@numHoteles}\nNumero casas #{@numCasas}\n"
+        mensaje += "\nCoste #{@coste}\nTitulo = "+@titulo.to_s()+"\nNumero hoteles #{@numHoteles}\nNumero casas #{@numCasas}\n"
       end
       
       return mensaje
@@ -59,7 +59,7 @@ module ModeloQytetet
     end
     
     def asignar_propietario(jugador)
-      titulo.propietario(jugador);
+      @titulo.propietario = jugador;
       return titulo;
     end
     

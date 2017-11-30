@@ -13,7 +13,7 @@ require_relative "qytetet"
 module ModeloQytetet
   class PruebaQytetet
  
-    
+=begin
     def self.main
       @juego = Qytetet.instance
       nombres = Array.new
@@ -26,5 +26,5 @@ module ModeloQytetet
     
   end
   PruebaQytetet.main
-  
+=end
 end
