@@ -44,7 +44,7 @@ module ModeloQytetet
         TituloPropiedad.crear("Anfiteatro", 60, 0.16, 400, 275) )
       
       @casillas << Casilla.crear_calle(9, 500,
-        TituloPropiedad.crear("Aulas pefabricadas", 90, 0.11, 425, 725) )
+        TituloPropiedad.crear("Aulas prefabricadas", 90, 0.11, 425, 725) )
       
       @casillas << Casilla.crear_no_calle(10, TipoCasilla::PARKING)
       

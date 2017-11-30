@@ -105,10 +105,6 @@ module ModeloQytetet
       @numCasas = 0
       @numHoteles = 0
       @titulo.propietario = nil;
-      puts @coste
-      puts @numCasas
-      puts @numHoteles
-      puts @titulo.precio_edificar
       precio_compra = @numCasas + @numHoteles
       precio_compra = precio_compra * @titulo.precio_edificar
       precio_compra = precio_compra + @coste

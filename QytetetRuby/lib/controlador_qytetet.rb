@@ -25,7 +25,7 @@ module InterfazTextualQytetet
       return @@jugador.saldo <= 0
     end
     def self.desarrollo_juego
-      #while(!bancarrota)
+      while(!bancarrota)
       @@vista.mostrar("Turno de: \n"+@@jugador.to_s)
       libre = true
       if(@@jugador.encarcelado)
@@ -126,16 +126,21 @@ module InterfazTextualQytetet
                   end
                 end  
               end
-
-
             end
-                
+            if (!@@jugador.tengo_propiedades && !@@jugador.encarcelado && !bancarrota()) 
+              @@vista.mostrar("Usted no tiene propiedades para gestionar\n");
+            end
+
           end
         end
 
-            
+         if (!bancarrota()) 
+                @@jugador = @@juego.siguiente_jugador
+                @@casilla = @@jugador.casilla_actual
+         end
       end
-      #end
+    end
+      @@vista.mostrar(@@juego.obtener_ranking)
     end
     ## --------------------el siguiente método va en ControladorQytetet
     def self.elegir_propiedad(propiedades) # lista de propiedades a elegir

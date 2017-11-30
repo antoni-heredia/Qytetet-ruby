@@ -69,7 +69,7 @@ module ModeloQytetet
     end
     
     def modificar_saldo(cantidad)
-      @saldo += cantidad
+      @saldo = @saldo + cantidad
     end
     
     def tengo_propiedades
@@ -91,11 +91,11 @@ module ModeloQytetet
       capital = @saldo
 		
       @propiedades.each do |p|	
-        capita += p.casilla.coste
-        capital += self.cuantas_casas_hoteles_tengo*t.precio_edificar
+        capital = capital + p.casilla.coste
+        capital = capital + cuantas_casas_hoteles_tengo*p.precio_edificar
 			
-        if(t.hipotecada)
-          capital -= t.hipoteca_base
+        if(p.hipotecada)
+          capital = capital- p.hipoteca_base
         end
       end
 
@@ -115,8 +115,11 @@ module ModeloQytetet
     end
 	
     def eliminar_de_mis_propiedades(casilla)
-      @propiedades.reject!{ |x| x.numeroCasilla == casilla.numeroCasilla}		
-      #@propiedades.delete(casilla)		
+      for i in @propiedades
+        if(i.casilla == casilla)
+          @propiedades.delete(i)
+        end
+      end
     end
 
     def obtener_propiedades_hipotecadas(hipotecada)
@@ -176,7 +179,6 @@ module ModeloQytetet
         
         if(!tengo_propietario)
           coste_compra = @casilla_actual.coste;
-                
           if(coste_compra <= @saldo)
             titulo = @casilla_actual.asignar_propietario(self)
             @propiedades << titulo;

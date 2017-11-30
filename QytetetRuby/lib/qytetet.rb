@@ -52,8 +52,8 @@ module ModeloQytetet
     
     def siguiente_jugador
       
-      posicion_jugador = (@jugadores.rindex(@jugador_actual) + 1) % @@MAX_JUGADORES
-      @jugador_actual = @jugador[posicion_jugador]
+      posicion_jugador = (@jugadores.rindex(@jugador_actual) + 1) % @jugadores.size
+      @jugador_actual = @jugadores[posicion_jugador]
       
     end
     
@@ -103,7 +103,7 @@ module ModeloQytetet
     
     def hipotecar_propiedad(casilla)
       puedo_hipotecar_propiedad = false;
-      if (casilla.soyEdificable()) 
+      if (casilla.soy_edificable()) 
           se_puede_hipotecar = !casilla.esta_hipotecada
 
           if (se_puede_hipotecar) 
@@ -244,10 +244,10 @@ module ModeloQytetet
     
     def cancelar_hipoteca(casilla)
       cancelada = false
-      if casilla.soyEdificable()
+      if casilla.soy_edificable()
         esta_hipotecada = casilla.esta_hipotecada
         if esta_hipotecada
-          if @jugador_actual.puedoPagarHipoteca(casilla)
+          if @jugador_actual.puedo_pagar_hipoteca(casilla)
             precio_cancelacion = casilla.cancelar_hipoteca
             @jugador_actual.modificar_saldo(-precio_cancelacion)
             cancelada = true
