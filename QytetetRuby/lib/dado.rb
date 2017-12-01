@@ -8,8 +8,8 @@ module ModeloQytetet
     include Singleton
   
     def tirar
-      #return rand(5) + 1
-      return 1
+      return rand(5) + 1
+      #return 1
     end
     
   end
