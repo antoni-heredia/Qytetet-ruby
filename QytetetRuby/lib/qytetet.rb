@@ -46,7 +46,7 @@ module ModeloQytetet
       @@PRECIO_LIBERTAD
     end
     
-    def self.MAX_SALIDA
+    def self.SALDO_SALIDA
       @@SALDO_SALIDA
     end
     

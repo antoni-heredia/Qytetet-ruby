@@ -83,7 +83,7 @@ module ModeloQytetet
     end
     
     def obtener_nueva_casilla(casilla, desplazamiento)
-      return @casillas[casilla.numeroCasilla+desplazamiento]
+      return @casillas[(casilla.numeroCasilla + desplazamiento) % @casillas.size ]
     end 
     
     def to_s
