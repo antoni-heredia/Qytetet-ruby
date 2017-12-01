@@ -27,6 +27,10 @@ module ModeloQytetet
     def self.crear_calle(numeroCasilla, coste, titulo)
       self.new(numeroCasilla, coste,TipoCasilla::CALLE,titulo)
     end
+
+    def self.crear_impuesto(numeroCasilla, coste, tipo)
+      self.new(numeroCasilla, coste,tipo, nil)
+    end
     
     #construtor para casillas que no son calle
     def self.crear_no_calle(numeroCasilla, tipo)
@@ -48,7 +52,7 @@ module ModeloQytetet
       mensaje = "\nNumero casilla #{@numeroCasilla}\nTipo #{@tipo}\n"
       
       if(tipo == TipoCasilla::CALLE)
-        mensaje += "\nCoste #{@coste}\nTitulo = "+@titulo.to_s()+"\nNumero hoteles #{@numHoteles}\nNumero casas #{@numCasas}\n"
+        mensaje += "\nCoste #{@coste}\nNumero hoteles #{@numHoteles}\nNumero casas #{@numCasas}\nTitulo = " +@titulo.to_s()
       end
       
       return mensaje
@@ -118,8 +122,9 @@ module ModeloQytetet
       return precio_venta
     end
     
-    def se_puede_edificar_hotel()
-      return @num_casas == 4
+    def se_puede_edificar_hotel
+      
+      return @numCasas == 4
     end
     
     def edificar_hotel()

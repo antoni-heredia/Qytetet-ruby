@@ -64,7 +64,7 @@ module ModeloQytetet
       @casillas << Casilla.crear_calle(16, 150,
         TituloPropiedad.crear("Aulario", 150, 0.16, 550, 600))
       
-      @casillas << Casilla.crear_no_calle(17, TipoCasilla::IMPUESTO)
+      @casillas << Casilla.crear_impuesto(17, 200, TipoCasilla::IMPUESTO)
       
       @casillas << Casilla.crear_calle(18, 200, 
         TituloPropiedad.crear("Copisteria", 65, 0.18, 475, 625))

@@ -212,6 +212,7 @@ module ModeloQytetet
       if !nueva_casilla.soy_edificable
         
         if nueva_casilla.tipo == TipoCasilla::JUEZ
+          puts "El jugador ha caido en casilla juez"
           encarcelar_jugador
           
         elsif nueva_casilla.tipo == TipoCasilla::SORPRESA
@@ -224,20 +225,17 @@ module ModeloQytetet
     end
     
     def edificar_hotel(casilla)
-      puedoEdificar = false
+      puedo_edificar = false
       
-      if casilla.soy_edificable
-        se_puede_edificar = casilla.se_puede_edificar_hotel
-        
-        if se_puede_edificar
-          puedo_edificar = @jugador_actual.puedo_edificar_hotel
-          
+      if casilla.soy_edificable          
+        if casilla.se_puede_edificar_hotel
+          puedo_edificar = @jugador_actual.puedo_edificar_hotel(casilla)
           if puedo_edificar
             coste_edificar_hotel = casilla.edificar_hotel
             @jugador_actual.modificar_saldo(-coste_edificar_hotel)
           end
         end  
-      end
+      end      
       return puedo_edificar
     end
     

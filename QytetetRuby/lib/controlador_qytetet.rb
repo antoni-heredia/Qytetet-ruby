@@ -33,13 +33,21 @@ module InterfazTextualQytetet
         casillas = @@juego.propiedades_hipotecadas_jugador(true)
         casillas += @@juego.propiedades_hipotecadas_jugador(false)
         casilla_elegida = elegir_propiedad(casillas)
-        @@juego.edificar_casa(casilla_elegida)
+        if(@@juego.edificar_casa(casilla_elegida))
+          @@vista.mostrar("Se ha edificado una casa")
+        else
+          @@vista.mostrar("No se ha podido edificar casa")
+        end
       when 2
         @@vista.mostrar("Todas tus propiedades: \n")
         casillas = @@juego.propiedades_hipotecadas_jugador(true)
         casillas += @@juego.propiedades_hipotecadas_jugador(false)
         casilla_elegida = elegir_propiedad(casillas)
-        @@juego.edificar_hotel(casilla_elegida)
+        if(@@juego.edificar_hotel(casilla_elegida))
+          @@vista.mostrar("Se ha edificado un hotel")
+        else
+          @@vista.mostrar("No se ha podido edificar hotel")
+        end
       when 3
         casillas = @@juego.propiedades_hipotecadas_jugador(false)
         if (casillas.any?)
@@ -68,12 +76,12 @@ module InterfazTextualQytetet
         else
           @@vista.mostrar("No tiene propiedades para realizar esta opicon \n")
         end
-      end 
+      end
+      @@vista.mostrar("El saldo actual del jugador" + @@jugador.saldo.to_s)
     end
     
     def self.casilla_tipo_calle(no_tiene_propietario)
-      @@vista.mostrar("Numero de la casilla actual es " + @@casilla.numeroCasilla.to_s)
-      @@vista.mostrar("Nombre de la casilla actual es " + @@casilla.titulo.nombre)
+      @@vista.mostrar("Casilla actual" + @@casilla.to_s)
       
       if(!no_tiene_propietario)
         @@vista.mostrar("La casilla no tiene propietario")
@@ -88,8 +96,7 @@ module InterfazTextualQytetet
           end
         end
       else
-        @@vista.mostrar("La casilla actual tiene propietario, tiene que pagar " + @@casilla.precio_alquiler.to_s +
-          "\nSu saldo actual es de " + @@jugador.saldo)
+        @@vista.mostrar("La casilla actual tiene propietario, tiene que pagar " + @@casilla.precio_alquiler.to_s + "\nSu saldo actual es de " + @@jugador.saldo.to_s)
       end
     end
     
@@ -123,6 +130,9 @@ module InterfazTextualQytetet
       else
         libre = @@juego.intentar_salir_carcel(ModeloQytetet::MetodoSalirCarcel::TIRANDODADO)
       end
+      if(libre)
+        @@vista.mostrar("Has sido liberado de la carcel")
+      end
       return libre
     end
     
@@ -133,13 +143,14 @@ module InterfazTextualQytetet
       if(num_dado < 0)
         num_dado = num_dado + 20
       end
-      @@vista.mostrar("Saco un " + num_dado.to_s + " al tirar el dado")
+      if(!@@jugador.encarcelado)
+        @@vista.mostrar("Saco un " + num_dado.to_s + " al tirar el dado")
+      end
       @@casilla = @@jugador.casilla_actual
-      @@vista.mostrar("\n Estado actual del jugador: " + @@jugador.to_s);
             
       if(!bancarrota)
         if(!@@jugador.encarcelado)
-                
+          
           if(@@casilla.tipo == ModeloQytetet::TipoCasilla::CALLE)
             casilla_tipo_calle(no_tiene_propietario)
           end
@@ -151,6 +162,11 @@ module InterfazTextualQytetet
           if(!@@jugador.encarcelado && !bancarrota() && @@jugador.tengo_propiedades)
             opcion = 1
             while(opcion !=0 && @@jugador.tengo_propiedades)
+              @@vista.mostrar("\nPropiedades del jugador")
+              @@jugador.propiedades.each do |p|
+                @@vista.mostrar("Nombre: "+ p.nombre + " Numero de casas: " + p.casilla.numCasas.to_s+ " Numero de hoteles: " + p.casilla.numHoteles.to_s + " Hipotecada: " + p.hipotecada.to_s)
+                @@vista.mostrar("")
+              end
               opcion = @@vista.menu_gestion_inmobiliaria
                   
               gestion_inmobiliarioa(opcion)
@@ -160,7 +176,8 @@ module InterfazTextualQytetet
           if (!@@jugador.tengo_propiedades && !@@jugador.encarcelado && !bancarrota()) 
             @@vista.mostrar("Usted no tiene propiedades para gestionar\n");
           end
-
+        else
+          @@vista.mostrar("El jugador ha sido encarcelado")
         end
       end
     end
@@ -168,6 +185,7 @@ module InterfazTextualQytetet
     def self.desarrollo_juego
       while(!bancarrota)
         @@vista.mostrar("Turno de: "+@@jugador.nombre)
+        @@vista.mostrar("Saldo de: "+@@jugador.saldo.to_s)        
         @@vista.mostrar("Casilla actual numero: " + @@casilla.numeroCasilla.to_s)
         libre = true
         if(@@jugador.encarcelado)

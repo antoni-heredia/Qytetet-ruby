@@ -54,7 +54,11 @@ module ModeloQytetet
     
     #Metodo que devuelve una cadena de caracteres con la informacion del titulo de la propiead
     def to_s
-      "Nombre #{@nombre}\nHipotecada: #{@hipotecada}\nAlquiler base #{@alquiler_base}\n"+
+      texto = ""
+      if (@propietario != nil)
+        texto = "Propietario: "+ @propietario.nombre + "\n"
+      end
+      texto = texto +"Nombre #{@nombre}\nHipotecada: #{@hipotecada}\nAlquiler base #{@alquiler_base}\n"+
       "Factor revalorizacion #{@factor_revalorizacion}\nHipoteca base #{@hipoteca_base}\n"+
       "Precio_edificar #{@precio_edificar}\n"
     end

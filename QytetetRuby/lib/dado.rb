@@ -9,7 +9,7 @@ module ModeloQytetet
   
     def tirar
       #return rand(5) + 1
-      return 5
+      return 1
     end
     
   end
