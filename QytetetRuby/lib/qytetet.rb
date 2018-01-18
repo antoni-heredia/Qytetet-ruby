@@ -152,17 +152,17 @@ module ModeloQytetet
           num_jugadores = @jugadores.length
           
           for i in 0..num_jugadores
-            if (@jugadorActual == @jugadores.at(i))
+            if (@jugador_actual == @jugadores.at(i))
               indice = i
             end
           end
 
-          @jugadorActual = @jugadorActual.convertirme(@carta_actual.valor)
-          @jugadores[indice] = @jugadorActual
+          @jugador_actual = @jugador_actual.convertirme(@carta_actual.valor)
+          @jugadores[indice] = @jugador_actual
         end
 
         if (@carta_actual.tipo == TipoSorpresa::SALIRCARCEL)
-          @jugador_actual.carta_libertad = @carta_actual
+          @jugador_actual.carta_libertad = @cata_actual
         else
           @mazo<< (@carta_actual);
         end

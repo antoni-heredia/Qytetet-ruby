@@ -2,7 +2,7 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-
+require_relative "especulador"
 module ModeloQytetet
   class Jugador
     attr_reader :nombre, :propiedades, :saldo
@@ -249,10 +249,10 @@ module ModeloQytetet
     end
     
     def convertirme(fianza) 
-        especulador = new Especulador(self, fianza);
+        especulador = Especulador.new(self, fianza);
         
         especulador.propiedades.each do |propiedad|
-          propiedad.propietario = especculador
+          propiedad.propietario = especulador
         end
         
         return especulador
