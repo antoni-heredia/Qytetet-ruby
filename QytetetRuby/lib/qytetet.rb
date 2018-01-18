@@ -87,7 +87,7 @@ module ModeloQytetet
     def edificar_casa(casilla)
       puedo_edificar = false;
       if (casilla.soy_edificable()) 
-          se_puede_edificar = casilla.se_puede_edificar_casa
+        se_puede_edificar = casilla.se_puede_edificar_casa(@jugador_actual.factor_especulador)
           if (se_puede_edificar) 
               puedo_edificar = @jugador_actual.puedo_edificar_casa(casilla);
               if (puedo_edificar) 
@@ -147,7 +147,18 @@ module ModeloQytetet
                 end
 
             end
+        elsif (@carta_actual.tipo ==  TipoSorpresa::CONVERTIRME)
+          indice = 0
+          num_jugadores = @jugadores.length
+          
+          for i in 0..num_jugadores
+            if (@jugadorActual == @jugadores.at(i))
+              indice = i
+            end
+          end
 
+          @jugadorActual = @jugadorActual.convertirme(@carta_actual.valor)
+          @jugadores[indice] = @jugadorActual
         end
 
         if (@carta_actual.tipo == TipoSorpresa::SALIRCARCEL)
@@ -228,7 +239,7 @@ module ModeloQytetet
       puedo_edificar = false
       
       if casilla.soy_edificable          
-        if casilla.se_puede_edificar_hotel
+        if casilla.se_puede_edificar_hotel(@jugador_actual.factor_especulador)
           puedo_edificar = @jugador_actual.puedo_edificar_hotel(casilla)
           if puedo_edificar
             coste_edificar_hotel = casilla.edificar_hotel
@@ -304,6 +315,12 @@ module ModeloQytetet
           "Todos te piden dinero por su silencio. " + 
           "Te toca pagar.", 15,
         TipoSorpresa::PORJUGADOR)
+      @mazo<< Sorpresa.new("Has sido aceptado en la facultad de economia. " +
+        "Prearate para ser un gran especulador." , 3000,
+        TipoSorpresa::CONVERTIRME)
+      @mazo<< Sorpresa.new("Despues de mucho esfuerzo entras a trabajar en banco. " +
+        "Hora de especular.", 5000,
+        TipoSorpresa::CONVERTIRME)
       @mazo.shuffle!
     end
     

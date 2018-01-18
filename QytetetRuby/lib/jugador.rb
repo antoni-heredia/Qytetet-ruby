@@ -6,7 +6,7 @@
 module ModeloQytetet
   class Jugador
     attr_reader :nombre, :propiedades, :saldo
-    attr_accessor :casilla_actual, :encarcelado, :carta_libertad
+    attr_accessor :casilla_actual, :encarcelado, :carta_libertad, :factor_especulador
   
     def initialize(nombre)
       @encarcelado = false
@@ -15,8 +15,11 @@ module ModeloQytetet
       @carta_libertad = nil
       @casilla_actual = nil
       @propiedades = Array.new
+      @factor_especulador = 1
     end
     
+    
+   
     def to_s
       cadena = "Nombre: #{@nombre} \nSaldo: #{@saldo} \n"
       
@@ -165,7 +168,7 @@ module ModeloQytetet
       
       if (casilla.tipo == TipoCasilla::IMPUESTO) 
         coste = casilla.coste
-        modificar_saldo(-coste)
+        pagar_impuestos(coste)
       end
       return tiene_propietario;
     end
@@ -245,6 +248,19 @@ module ModeloQytetet
       return puedo_pagar
     end
     
+    def convertirme(fianza) 
+        especulador = new Especulador(self, fianza);
+        
+        especulador.propiedades.each do |propiedad|
+          propiedad.propietario = especculador
+        end
+        
+        return especulador
+    end
+    def pagar_impuestos(cantidad)
+      modificar_saldo(cantidad)
+    end
     private :cuantas_casas_hoteles_tengo, :es_de_mi_propiedad, :eliminar_de_mis_propiedades, :tengo_saldo
+    protected :pagar_impuestos
   end
 end

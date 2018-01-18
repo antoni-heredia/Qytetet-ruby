@@ -67,8 +67,8 @@ module ModeloQytetet
       return titulo;
     end
     
-    def se_puede_edificar_casa
-      return @numCasas < 4
+    def se_puede_edificar_casa (factor)
+      return @numCasas < (factor * 4)
     end
     
     def get_precio_edificar()
@@ -122,9 +122,9 @@ module ModeloQytetet
       return precio_venta
     end
     
-    def se_puede_edificar_hotel
+    def se_puede_edificar_hotel(factor)
       
-      return @numCasas == 4
+      return @numCasas == (4 * factor)
     end
     
     def edificar_hotel()
