@@ -5,6 +5,8 @@ require_relative 'vista_textual_qytetet'
 require_relative 'qytetet'
 require_relative 'metodo_salir_carcel'
 require_relative 'tipo_casilla'
+require_relative 'jugador'
+
 
 module InterfazTextualQytetet
   class Controlador_qytetet
